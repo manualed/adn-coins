@@ -1,0 +1,62 @@
+<div class="card ">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+
+    <form #transactionForm="ngForm">
+      <div class="form-group row">
+        <label for="idEmpleado" class="col-form-label col-sm-2">Empleado</label>
+        <div class="col-sm-6">
+          <select name="idEmpleado" [(ngModel)]="transaction.idEmpleado">
+            <option [value]="employee.idEmpleado" *ngFor="let employee of employees">
+              {{employee.primerNombre}} {{employee.primerApellido}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="idBonificacion" class="col-form-label col-sm-2">Bonificacion</label>
+        <div class="col-sm-6">
+          <select name="idBonificacion" [(ngModel)]="transaction.idBonificacion">
+              <option [value]="bonus.idBonificacion" *ngFor="let bonus of bonuses">
+              {{bonus.codigoBonificacion}} {{bonus.nombreBonificacion}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="fechaObtencion" class="col-form-label col-sm-2">Fecha Obtencion</label>
+        <div class="col-sm-6">
+          <input type="date" class="form-control" [(ngModel)]="transaction.fechaObtencion" name="fechaObtencion" required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="fechaRedencion" class="col-form-label col-sm-2">Fecha Redencion</label>
+        <div class="col-sm-6">
+          <input type="date" class="form-control" [(ngModel)]="transaction.fechaRedencion" name="fechaRedencion" required>
+        </div>
+      </div>
+
+      <!-- <div class="form-group row">
+        <label for="redimido" class="col-form-label col-sm-2">Redimido</label>
+        <div class="col-sm-6">
+          <select name="redimido" [(ngModel)]="transaction.redimido" required>
+            <option [value]="transaction.redimido" *ngFor="let redeem of listaRedimidos">
+              {{redeem}}
+            </option>
+          </select> 
+        </div>
+      </div> -->
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!transaction.idTransaccion else elseBlock" [disabled]="!transactionForm.form.valid" >Crear</button>
+
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!transactionForm.form.valid">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

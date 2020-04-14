@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-header">{{ titulo }}</div>
+  <div class="card-body">
+    <form #bonificacionForm="ngForm">
+      <div class="form-group row">
+        <label for="codigoBonificacion" class="col-form-label col-sm-2">Codigo Bonificacion</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="bonus.codigoBonificacion" name="codigoBonificacion" required minlength="3" #codigoBonificacion="ngModel">
+          <div class="alert alert-danger" *ngIf="codigoBonificacion.invalid && (codigoBonificacion.dirty || codigoBonificacion.touched)">
+            <div *ngIf="codigoBonificacion.errors.required">
+              Campo requerido
+            </div>
+            <div *ngIf="codigoBonificacion.errors.minlength">
+              Campo de minimo 3 caracteres
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="nombreBonificacion" class="col-form-label col-sm-2">Nombre Bonificacion</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="bonus.nombreBonificacion" name="nombreBonificacion" required minlength="3" #nombreBonificacion="ngModel">
+          <div class="alert alert-danger" *ngIf="nombreBonificacion.invalid && (nombreBonificacion.dirty || nombreBonificacion.touched)">
+            <div *ngIf="nombreBonificacion.errors.required">
+              Campo requerido
+            </div>
+            <div *ngIf="nombreBonificacion.errors.minlength">
+              Campo de minimo 3 caracteres
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="valorBonificacion" class="col-form-label col-sm-2">Valor Bonificacion</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="bonus.valorBonificacion" name="valorBonificacion" required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="tipoBonificacion" class="col-form-label col-sm-2">Tipo Bonificacion</label>
+        <div class="col-sm-6">
+          <select name="tipoBonificacion" [(ngModel)]="bonus.tipoBonificacion" required>
+            <option [value]="bonusType.value" *ngFor="let bonusType of listaTipoBonificacion">
+              {{bonusType.viewValue}}
+            </option>
+          </select> 
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!bonus.idBonificacion else elseBlock" [disabled]="!bonificacionForm.form.valid" >Crear</button>
+
+          <ng-template #elseBlock>
+            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!bonificacionForm.form.valid">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

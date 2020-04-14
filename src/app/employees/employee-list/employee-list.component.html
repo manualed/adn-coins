@@ -1,0 +1,49 @@
+<div class="card mb-3">
+  <div class="card-header">Empleados</div>
+  <div class="card-body ">
+    <h5 class="card-title">Listado de empleados</h5>
+    <div class="my-2 text-left">
+      <button class="btn btn-rounded btn-primary"  type="button" [routerLink]="['/employees/employee']">Crear Empleado</button>
+    </div>
+    <div *ngIf="employees != null && employees.length == 0" class="alert alert-info">
+      No se encontraron registros.
+    </div>
+    <table class="table table-bordered table-striped" *ngIf="employees?.length > 0">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Tipo Documento</th>
+          <th>Número Documento</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Fecha Ingreso</th>
+          <th>Fecha Nacimiento</th>
+          <th>email</th>
+          <th>
+            editar
+          </th>
+          <th>eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{ employee.idEmpleado }}</td>
+          <td>{{ employee.tipoDocumento }}</td>
+          <td>{{ employee.numeroDocumento }}</td>
+          <td>{{ employee.primerNombre | titlecase }}</td>
+          <td>{{ employee.primerApellido | titlecase }}</td>
+          <td>{{ employee.fechaIngreso | date }}</td>
+          <td>{{ employee.fechaNacimiento | date }}</td>
+          <td>{{ employee.email }}</td>
+          <td>
+            <button type="button" name="editar" [routerLink]="['/employees/employee', employee.idEmpleado]" class="btn btn-primary btn-sm">editar</button>
+          </td>
+          <td>
+            <button type="button" name="eliminar" (click)='delete(employee)' class="btn btn-danger btn-sm">eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
